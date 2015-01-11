@@ -121,6 +121,13 @@ class Bus < Sinatra::Base
 		logger.info "API GET STATION"
 		content_type :json
 
+		busgogo=Busgogo.new
+		busgogo.num=params[:num].to_i
+		busgogo.station=profile_after['station']
+		busgogo.address='11111111'
+		busgogo.save
+		logger.info "save num&station&address to AWS dynamo DB!!"
+
 		#num = params[:num].to_i
 		user.nil? ? halt(404) : user.to_json
 
