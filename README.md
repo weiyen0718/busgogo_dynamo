@@ -23,9 +23,13 @@ There are APIs you can use
   
 ###Other API
  GET '/api/v2/station/:num.json' do
+ 
  POST '/api/v2/tutorials' do
+ 
  GET '/api/v2/tutorials/:id' do
+ 
  DELETE '/api/v2/tutorials/:id' do
+ 
 
 ###Authors
 
