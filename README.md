@@ -12,28 +12,21 @@ Take the link() to use our service.
 There are APIs you can use
 
 +Bus stop address information:
-
-        https://.herokuapp.com/api/v2/station/(num).json
-
+   https://busgogo-dynamo.herokuapp.com/api/v2/station/(:num).json 
+   
   You have three choices to replace the ```(num)``` part.
   1. use ```1``` to get the all stop name and address in 新竹地區.
   2. use ```2``` to get the all stop name and address in 竹東地區.
 
   until 10
+  and you can get all stop name and address in some area
+  
+###Other API
+ GET '/api/v2/station/:num.json' do
+ POST '/api/v2/tutorials' do
+ GET '/api/v2/tutorials/:id' do
+ DELETE '/api/v2/tutorials/:id' do
 
-###Example Code
-
-Usage : ruby executable.rb [number]
-
-1) ruby executable.rb [number] <br/>
-2) ruby executable.rb 1 <br/>
-    Save HsinZhu Bus Website structure into a file (Structure.txt) <br/>
-3) ruby executable.rb 2 <br/>
-    Show HsinZhu Bus Station. <br/>
-4) ruby executable.rb 3 <br/>
-    Get bus stataion information in detail. <br/>
-5) ruby executable.rb 4 <br/>
-    Get file (bus stataion information)bus(Output.txt).
 ###Authors
 
 Yen Wei ,Wu ChiaChun
