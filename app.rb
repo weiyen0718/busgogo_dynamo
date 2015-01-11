@@ -31,8 +31,13 @@ class Bus < Sinatra::Base
 			profile_after={
 		 		'station' => num,
 				'profiles' => 'not yet found',
-				'data'  => []				
+				'data'  => [],	
+				'stop' => [],
+				'address' => []			
 			}
+			# data_info={
+				
+			# }
 
 			begin
 				buses = WebScraper.new
@@ -42,8 +47,11 @@ class Bus < Sinatra::Base
 				busess = WebScraper.new
 				adr = busess.selectdropdown('http://www.hcbus.com.tw/big5/service.asp',num-1)
 				logger.info("Found: #{adr}")
+
 				adr.each do |name,tmp_adr|
 				profile_after['data'].push('stop' => name,'adr' => tmp_adr)
+				profile_after['stop'].push(name)
+				profile_after['address'].push(tmp_adr)
 					end
 			
 				
@@ -53,6 +61,8 @@ class Bus < Sinatra::Base
 			profile_after
 		
 		end
+
+
 
                  def new_tutorial(req)
                  tutorial = Tutorial.new
@@ -123,15 +133,17 @@ class Bus < Sinatra::Base
 
 		busgogo=Busgogo.new
 		busgogo.num=params[:num].to_i
-		busgogo.station=profile_after['station']
-		busgogo.address='11111111'
+		busgogo.station=user['stop']
+		busgogo.address=user['address']
 		busgogo.save
 		logger.info "save num&station&address to AWS dynamo DB!!"
-
+		
 		#num = params[:num].to_i
 		user.nil? ? halt(404) : user.to_json
 
+
 		
+
 
 
 
