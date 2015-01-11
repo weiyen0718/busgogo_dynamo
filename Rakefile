@@ -14,7 +14,7 @@ namespace :db do
   desc "Create database"
   task :migrate do
     begin
-      WebScraper.create_table(5, 6)
+      Busgogo.create_table(5, 6)
     rescue AWS::DynamoDB::Errors::ResourceInUseException => e
       puts 'DB exists -- no changes made, no retry attempted'
     end
