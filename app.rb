@@ -65,10 +65,10 @@ class Bus < Sinatra::Base
 
 
                  def new_tutorial(req)
-                 tutorial = Tutorial.new
+                 tutorial = Busgogo.new
                  tutorial.num = req['num'].to_json
                  tutorial.station = req['station'].to_json
-					  tutorial.address = req['address'].to_json
+				tutorial.address = req['address'].to_json
                  tutorial
                  end
 	end
@@ -97,7 +97,7 @@ class Bus < Sinatra::Base
          end
 		#endTables: 0
 
-			tutorial = Tutorial.new
+			tutorial = Busgogo.new
 			tutorial.num = req['num'].to_json
 			tutorial.station = req['station'].to_json
 			tutorial.address = req['address'].to_json
@@ -113,7 +113,7 @@ class Bus < Sinatra::Base
 	 	content_type :json, 'charset' => 'utf-8'
 
 	  begin
-		  @tutorial = Tutorial.find(params[:id])
+		  @tutorial = Busgogo.find(params[:id])
 			num = @tutorial.num
 			station = @tutorial.station
 			address = @tutorial.address
@@ -131,12 +131,12 @@ class Bus < Sinatra::Base
 		logger.info "API GET STATION"
 		content_type :json
 
-		busgogo=Busgogo.new
-		busgogo.num=params[:num].to_i
-		busgogo.station=user['stop']
-		busgogo.address=user['address']
-		busgogo.save
-		logger.info "save num&station&address to AWS dynamo DB!!"
+		# busgogo=Busgogo.new
+		# busgogo.num=params[:num].to_i
+		# busgogo.station=user['stop']
+		# busgogo.address=user['address']
+		# busgogo.save
+		# logger.info "save num&station&address to AWS dynamo DB!!"
 		
 		#num = params[:num].to_i
 		user.nil? ? halt(404) : user.to_json
@@ -170,13 +170,19 @@ class Bus < Sinatra::Base
 		content_type :json
 		
 		begin
-			tutorial = Tutorial.find(params[:id])
+			tutorial = Busgogo.find(params[:id])
 			#num = JSON.parse(tutorial.num)
 			#station = JSON.parse(tutorial.station)
 			#address = JSON.parse(tutorial.address)
-			logger.info "#{tutorial.num}, #{tutorial.station},#{tutorial.address} "
-         result = [tutorial.num+1, tutorial.station, tutorial.address].to_json
 		
+			tutorial.save
+
+			logger.info "!!!!#{tutorial.num}, #{tutorial.station},#{tutorial.address} "
+         	result = [tutorial.station, tutorial.address].to_json
+			
+
+			
+			logger.info "save num&station&address to AWS dynamo DB!!!!"
           
 		rescue
 			halt 400
